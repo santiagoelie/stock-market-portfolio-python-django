@@ -5,7 +5,7 @@ def home(request):
     import json
 
     # pk_08c7a6a3676c470d899103c8e2ed5602
-    api_request = requests.get("https://cloud.iexapis.com/stable/stock/aap1/quote?token=pk_08c7a6a3676c470d899103c8e2ed5602")
+    api_request = requests.get("https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_08c7a6a3676c470d899103c8e2ed5602")
 
     try:
         api = json.loads(api_request.content)
