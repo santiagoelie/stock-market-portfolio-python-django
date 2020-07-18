@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Stock
-from .forms import StockForm
 from django.contrib import messages
 from requests.api import request
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import response
+from .models import Stock
+from .forms import StockForm, SignUpForm
 
 def home(request):
     import requests
@@ -30,6 +30,8 @@ def about(request):
     return render(request, 'about.html', {})
 
 def news(request):
+    # e82e2dc6b9f4470599fe1bb035694f7a - api key for news stock market
+
     return render(request, 'news.html', {})
 
 def add_stock(request):
@@ -76,11 +78,33 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, ('You have successfully logged in!'))
             return redirect('home')
         else:
+            messages.success(request, ('Error logging in - Please try again...'))
             return redirect('login')
     else:
         return render(request, 'authenticate/login.html', {})
 
 def logout_user(request):
-    return render(request, 'authenticate/login.html', {})
+    logout(request)
+    messages.success(request, ('You have successfully logged out!'))
+    return redirect('home')
+
+def register_user(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            messages.success(request, ('You have Registered!'))
+            return redirect('home')
+
+    else:
+        form = SignUpForm()
+
+    context = {'form': form}
+    return render(request, 'authenticate/register.html', context)
