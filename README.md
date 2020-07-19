@@ -18,6 +18,6 @@ ____________________________________________
 #### Details:
 #### Technologies used: Python, Django, HTML, Bootstrap
 #### Ideas for future improvement:
-###### 1.
-###### 2.
-###### 3.
+###### 1. To add more feature's like buying stocks, available balance, etc. So the user have the ability to buy and managed their own specific stocks.
+###### 2. To improved User Interface, by using Javascript for more web interactive So the user give's more simple to understand user interface. And eliminating more links, so the user focused on the same page no more loading or going to other pages. 
+###### 3. To improved user security by encrypting all information like bank, user information, etc.
