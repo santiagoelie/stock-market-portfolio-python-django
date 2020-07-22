@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from django.contrib.auth import authenticate, login, logout
 from django.http import response
 from .models import Stock
-from .forms import StockForm, SignUpForm
+from .forms import StockForm, SignUpForm, EditProfileForm, EditPasswordForm
 
 def home(request):
     import requests
@@ -108,3 +108,33 @@ def register_user(request):
 
     context = {'form': form}
     return render(request, 'authenticate/register.html', context)
+
+
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('You have edited your profile!'))
+            return redirect('home')
+
+    else:
+        form = EditProfileForm(instance=request.user)
+
+    context = {'form': form}
+    return render(request, 'edit_profile.html', context)
+
+def change_password(request):
+    if request.method == 'POST':
+        form = EditPasswordForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, ('You have edited your password!'))
+            return redirect('home')
+
+    else:
+        form = EditPasswordForm(user=request.user)
+
+    context = {'form': form}
+    return render(request, 'change_password.html', context)
