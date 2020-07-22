@@ -18,6 +18,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
+            {% if user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
@@ -26,13 +27,27 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'news' %}">News</a>
-          </li>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'delete_stock' %}">Delete Stock</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Logout</a>
+              <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+            {% endif %}
           </ul>
           <form action="{% url 'home' %}" class="form-inline my-2 my-lg-0" method="POST">
               {% csrf_token %}
