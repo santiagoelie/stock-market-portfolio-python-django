@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>This is the News page..</h1>
+<div class="container">
+    {% for new, des, i in mylist %}
+    <img src="{{i}}" alt="">
+    <h3>News:</h3> {{new}}
+    {{value | linebreaks}}
+
+    <h4>Description:</h4> {{des}}
+    {{value | linebreaks}}
+
+    {% endfor %}
 
 {% endblock %}
