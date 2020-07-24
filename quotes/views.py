@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
+from newsapi import NewsApiClient
 from django.contrib import messages
 from requests.api import request
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.http import response
 from .models import Stock
 from .forms import StockForm, SignUpForm, EditProfileForm, EditPasswordForm
@@ -30,9 +31,26 @@ def about(request):
     return render(request, 'about.html', {})
 
 def news(request):
+    newsapi = NewsApiClient(api_key="e82e2dc6b9f4470599fe1bb035694f7a")
+    topheadlines = newsapi.get_top_headlines(sources="bbc-news")
+
+    articles = topheadlines['articles']
+
+    desc =[]
+    news = []
+    img =[]
+
+    for i in range(len(articles)):
+        myarticles = articles[i]
+
+        news.append(myarticles['title'])
+        desc.append(myarticles['description'])
+        img.append(myarticles['urlToImage'])
+
+    mylist = zip(news, desc, img)
     # e82e2dc6b9f4470599fe1bb035694f7a - api key for news stock market
 
-    return render(request, 'news.html', {})
+    return render(request, 'news.html', context={'mylist': mylist})
 
 def add_stock(request):
     import requests
