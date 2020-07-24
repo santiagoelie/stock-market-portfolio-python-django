@@ -85,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
     }
 }
-
+# Need to change the default URI everyday to make it work...
 DATABASES['default'] = dj_database_url.config(default='postgres://wqibdmusbwhppi:3d8968182dd2d44865020f876055aabf8622b195deca7c420ce49a2b646c208d@ec2-35-173-94-156.compute-1.amazonaws.com:5432/df3b6o0eb3hf6d')
 
 db_from_env = dj_database_url.config(conn_max_age=600)
