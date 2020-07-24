@@ -15,7 +15,7 @@ ____________________________________________
 
 #### Name: Eliezer Santiago
 #### Overview/Description of Project: Stock Market Web App. The main purpose of this project is to create stock portfolio application.
-#### Details:
+#### Details: Personal stock market portfolio web application.
 #### Technologies used: Python, Django, HTML, Bootstrap
 #### Ideas for future improvement:
 ###### 1. To add more feature's like buying stocks, available balance, etc. So the user have the ability to buy and managed their own specific stocks.
